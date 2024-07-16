@@ -19,45 +19,45 @@ import com.example.composeime.ui.ComposeIMETheme
 import splitties.systemservices.inputMethodManager
 
 class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            ComposeIMETheme {
-                Surface(color = MaterialTheme.colors.background) {
-                    Column {
-                        Options()
-                        Spacer(modifier = Modifier.weight(1f))
-                    }
-                }
-            }
-            isSystemInDarkTheme()
-        }
-    }
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setContent {
+			ComposeIMETheme {
+				Surface(color = MaterialTheme.colors.background) {
+					Column {
+						Options()
+						Spacer(modifier = Modifier.weight(1f))
+					}
+				}
+			}
+			isSystemInDarkTheme()
+		}
+	}
 }
 
 @Composable
 fun Options() {
-    Column(
-        Modifier
-            .padding(16.dp)
-            .fillMaxWidth()
-    ) {
-        val ctx = LocalContext.current
-        Text(text = "Compose Keyboard")
-        val (text, setValue) = remember { mutableStateOf(TextFieldValue("Try here")) }
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(modifier = Modifier.fillMaxWidth(), onClick = {
-            ctx.startActivity(Intent(Settings.ACTION_INPUT_METHOD_SETTINGS))
-        }) {
-            Text(text = "Enable IME")
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(modifier = Modifier.fillMaxWidth(), onClick = {
-            inputMethodManager.showInputMethodPicker()
-        }) {
-            Text(text = "Select IME")
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        TextField(value = text, onValueChange = setValue, modifier = Modifier.fillMaxWidth())
-    }
+	Column(
+		Modifier
+			.padding(16.dp)
+			.fillMaxWidth()
+	) {
+		val ctx = LocalContext.current
+		Text(text = "Compose Keyboard")
+		val (text, setValue) = remember { mutableStateOf(TextFieldValue("")) }
+		Spacer(modifier = Modifier.height(16.dp))
+		Button(modifier = Modifier.fillMaxWidth(), onClick = {
+			ctx.startActivity(Intent(Settings.ACTION_INPUT_METHOD_SETTINGS))
+		}) {
+			Text(text = "Enable IME")
+		}
+		Spacer(modifier = Modifier.height(16.dp))
+		Button(modifier = Modifier.fillMaxWidth(), onClick = {
+			inputMethodManager.showInputMethodPicker()
+		}) {
+			Text(text = "Select IME")
+		}
+		Spacer(modifier = Modifier.height(16.dp))
+		TextField(value = text, onValueChange = setValue, modifier = Modifier.fillMaxWidth())
+	}
 }
