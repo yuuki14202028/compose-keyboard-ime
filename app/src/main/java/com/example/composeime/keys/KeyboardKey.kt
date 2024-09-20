@@ -61,20 +61,16 @@ fun KeyboardKey(
 					offsetX += dragAmount.x
 					offsetY -= dragAmount.y
 					println(offsetX to offsetY to (offsetX / offsetY))
-					if (offsetX.pow(2) + offsetY.pow(2) < 100) {
-						offsetX = 0f
-						offsetY = 0f
-					} else {
-						val charIndex = when {
-							offsetX < -offsetY.absoluteValue -> 1 //左
-							offsetY > offsetX.absoluteValue -> 2 //上
-							offsetX > offsetY.absoluteValue -> 3 //右
-							offsetY < -offsetX.absoluteValue -> 4 //下
-							else -> 0 //中
-						}
-						keyboardKey.getOrNull(charIndex)?.let { str ->
-							selectedStr = str
-						}
+					val charIndex = when {
+						offsetX.absoluteValue + offsetY.absoluteValue < 100 -> 0
+						offsetX < -offsetY.absoluteValue -> 1 //左
+						offsetY > offsetX.absoluteValue -> 2 //上
+						offsetX > offsetY.absoluteValue -> 3 //右
+						offsetY < -offsetX.absoluteValue -> 4 //下
+						else -> 0 //中
+					}
+					keyboardKey.getOrNull(charIndex)?.let { str ->
+						selectedStr = str
 					}
 				},
 				onDragEnd = onEnd

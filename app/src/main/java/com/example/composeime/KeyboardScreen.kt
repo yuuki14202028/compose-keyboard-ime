@@ -1,8 +1,10 @@
 package com.example.composeime
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -44,29 +46,29 @@ fun KeyboardScreen(view: KeyboardScreenViewModel = KeyboardScreenViewModel()) {
 		CustomViewConfiguration(defaultViewConfiguration)
 	}
 	CompositionLocalProvider(LocalViewConfiguration provides viewConfiguration) {
-		Column(Modifier.fillMaxWidth()) {
-			Row {
+		Column(Modifier.fillMaxWidth().padding(8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+			Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
 				KeyboardKey(view, arrayOf("戻"), Modifier.weight(1f))
 				KeyboardKey(view, arrayOf("あ", "い", "う", "え", "お"), Modifier.weight(1f))
 				KeyboardKey(view, arrayOf("か", "き", "く", "け", "こ"), Modifier.weight(1f))
 				KeyboardKey(view, arrayOf("さ", "し", "す", "せ", "そ"), Modifier.weight(1f))
 				KeyboardDeleteKey(view, Modifier.weight(1f))
 			}
-			Row {
+			Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
 				KeyboardLeftKey(view, Modifier.weight(1f))
 				KeyboardKey(view, arrayOf("た", "ち", "つ", "て", "と"), Modifier.weight(1f))
 				KeyboardKey(view, arrayOf("な", "に", "ぬ", "ね", "の"), Modifier.weight(1f))
 				KeyboardKey(view, arrayOf("は", "ひ", "ふ", "へ", "ほ"), Modifier.weight(1f))
 				KeyboardRightKey(view, Modifier.weight(1f))
 			}
-			Row {
+			Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
 				KeyboardKey(view, arrayOf("絵"), Modifier.weight(1f))
 				KeyboardKey(view, arrayOf("ま", "み", "む", "め", "も"), Modifier.weight(1f))
 				KeyboardKey(view, arrayOf("や", "(", "ゆ", ")", "よ"), Modifier.weight(1f))
 				KeyboardKey(view, arrayOf("ら", "り", "る", "れ", "ろ"), Modifier.weight(1f))
 				KeyboardSpaceKey(view, Modifier.weight(1f))
 			}
-			Row {
+			Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
 				KeyboardKey(view, arrayOf("A"), Modifier.weight(1f))
 				KeyboardTranslateKey(view, Modifier.weight(1f))
 				KeyboardKey(view, arrayOf("わ", "を", "ん", "ー", "〜"), Modifier.weight(1f))
