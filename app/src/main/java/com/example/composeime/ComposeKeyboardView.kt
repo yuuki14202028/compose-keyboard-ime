@@ -24,15 +24,16 @@ import com.atilika.kuromoji.mozc.Tokenizer
 
 class ComposeKeyboardView(context: Context) : AbstractComposeView(context) {
 
-	val view = KeyboardScreenViewModel()
-	var tokenizer: Tokenizer = Tokenizer.Builder().build()
+	private val view = KeyboardScreenViewModel()
+	private var tokenizer: Tokenizer = Tokenizer.Builder().build()
 
 	@Composable
 	override fun Content() {
 		val imeService = (LocalContext.current) as IMEService
 		Column {
-			Text(view.composingText)
-			val a: List<List<Token>> = tokenizer.multiTokenizeNBest(view.composingText, 40)
+			val selectedText = view.selectedText
+			Text(selectedText)
+			val a: List<List<Token>> = tokenizer.multiTokenizeNBest(selectedText, 40)
 			val lists = a.distinctBy { tokens -> tokens.joinToString(separator = "") { it.reading } }
 			LazyHorizontalGrid(rows = GridCells.Fixed(1), modifier = Modifier
 				.height(48.dp)
@@ -44,13 +45,14 @@ class ComposeKeyboardView(context: Context) : AbstractComposeView(context) {
 							.border(1.dp, Color.Black)
 							.padding(4.dp)
 							.clickable {
-								view.composingText = tokens.joinToString(separator = "") { it.reading }
-								imeService.currentInputConnection.setComposingText(
-									view.composingText,
-									view.composingText.length
-								)
+								view.lastTranslatedText = selectedText
+								val translateText = tokens.joinToString(separator = "") { it.reading }
+								imeService.currentInputConnection.setComposingText(translateText, 1)
+								view.lastTranslateText = translateText
 								imeService.currentInputConnection.finishComposingText()
-								view.composingText = ""
+								view.composingText = view.composingText.replaceFirst(view.lastTranslatedText, "")
+								imeService.currentInputConnection.setComposingText(view.composingText, 1)
+								view.selectedText = view.composingText
 							}
 					) {
 						tokens.forEach {
