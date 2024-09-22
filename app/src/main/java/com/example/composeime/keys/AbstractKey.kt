@@ -1,7 +1,7 @@
 package com.example.composeime.keys
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.PressGestureScope
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
@@ -15,12 +15,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
-import com.example.composeime.KeyboardScreenViewModel
 
 
 class KeyScreenViewModel : ViewModel() {
@@ -28,7 +28,7 @@ class KeyScreenViewModel : ViewModel() {
 }
 
 @Composable
-fun KeyboardAbstractKey(view: KeyScreenViewModel = remember { KeyScreenViewModel() }, modifier: Modifier, string: String, onEnd:() -> Unit) {
+fun AbsbstractKey(view: KeyScreenViewModel = remember { KeyScreenViewModel() }, modifier: Modifier, string: String, onPress: suspend PressGestureScope.(Offset) -> Unit = {}, onEnd:() -> Unit) {
 	Box(modifier = modifier
 		.height(52.dp)
 		.clip(RoundedCornerShape(10.dp))
@@ -36,11 +36,12 @@ fun KeyboardAbstractKey(view: KeyScreenViewModel = remember { KeyScreenViewModel
 		.pointerInput(Unit) {
 			detectTapGestures(
 				onTap = {
-					onEnd()
 					view.pressed = false
+					onEnd()
 				},
-				onPress = {
+				onPress = { offset ->
 					view.pressed = true
+					onPress(offset)
 				}
 			)
 		}, contentAlignment = Alignment.Center) {

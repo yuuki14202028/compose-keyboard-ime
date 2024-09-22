@@ -8,9 +8,9 @@ import com.example.composeime.IMEService
 import com.example.composeime.KeyboardScreenViewModel
 
 @Composable
-fun KeyboardSpaceKey(view: KeyboardScreenViewModel, modifier: Modifier) {
+fun SpaceKey(view: KeyboardScreenViewModel, modifier: Modifier) {
 	val ctx = LocalContext.current
-	KeyboardAbstractKey(modifier = modifier, string = "空") {
+	AbsbstractKey(modifier = modifier, string = "空") {
 		view.composingText += " "
 		view.selectedText = view.composingText
 		(ctx as IMEService).currentInputConnection.apply {

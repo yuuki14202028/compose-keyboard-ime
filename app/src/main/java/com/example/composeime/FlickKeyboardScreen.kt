@@ -17,15 +17,30 @@ import androidx.compose.ui.platform.ViewConfiguration
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
-import com.example.composeime.keys.KeyboardDeleteKey
-import com.example.composeime.keys.KeyboardEnterKey
-import com.example.composeime.keys.KeyboardKey
-import com.example.composeime.keys.KeyboardLeftKey
-import com.example.composeime.keys.KeyboardRightKey
-import com.example.composeime.keys.KeyboardSpaceKey
-import com.example.composeime.keys.KeyboardTranslateKey
+import com.example.composeime.keys.AGyoKey
+import com.example.composeime.keys.DeleteKey
+import com.example.composeime.keys.EnterKey
+import com.example.composeime.keys.KaGyoKey
+import com.example.composeime.keys.DefaultInputKey
+import com.example.composeime.keys.LeftKey
+import com.example.composeime.keys.RightKey
+import com.example.composeime.keys.SpaceKey
+import com.example.composeime.keys.TranslateKey
+import com.example.composeime.keys.KigouKey
+import com.example.composeime.keys.MaGyoKey
+import com.example.composeime.keys.NaGyoKey
+import com.example.composeime.keys.RaGyoKey
+import com.example.composeime.keys.SaGyoKey
+import com.example.composeime.keys.HaGyoKey
+import com.example.composeime.keys.TaGyoKey
+import com.example.composeime.keys.KeyboardChangeKey
+import com.example.composeime.keys.ExprKey
+import com.example.composeime.keys.WaGyoKey
+import com.example.composeime.keys.YaGyoKey
 
 class KeyboardScreenViewModel : ViewModel() {
+
+	var keyboardType by mutableStateOf(KeyboardType.FLICK)
 
 	var lastTranslateText by mutableStateOf("")
 	var lastTranslatedText by mutableStateOf("")
@@ -40,7 +55,7 @@ class CustomViewConfiguration(private val defaultViewConfiguration: ViewConfigur
 }
 
 @Composable
-fun KeyboardScreen(view: KeyboardScreenViewModel = KeyboardScreenViewModel()) {
+fun FlickKeyboardScreen(view: KeyboardScreenViewModel = KeyboardScreenViewModel()) {
 	val defaultViewConfiguration = LocalViewConfiguration.current
 	val viewConfiguration = remember {
 		CustomViewConfiguration(defaultViewConfiguration)
@@ -48,32 +63,32 @@ fun KeyboardScreen(view: KeyboardScreenViewModel = KeyboardScreenViewModel()) {
 	CompositionLocalProvider(LocalViewConfiguration provides viewConfiguration) {
 		Column(Modifier.fillMaxWidth().padding(8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
 			Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-				KeyboardKey(view, arrayOf("戻"), Modifier.weight(1f))
-				KeyboardKey(view, arrayOf("あ", "い", "う", "え", "お"), Modifier.weight(1f))
-				KeyboardKey(view, arrayOf("か", "き", "く", "け", "こ"), Modifier.weight(1f))
-				KeyboardKey(view, arrayOf("さ", "し", "す", "せ", "そ"), Modifier.weight(1f))
-				KeyboardDeleteKey(view, Modifier.weight(1f))
+				DefaultInputKey(view, "戻", Modifier.weight(1f))
+				AGyoKey(view, Modifier.weight(1f))
+				KaGyoKey(view, Modifier.weight(1f))
+				SaGyoKey(view, Modifier.weight(1f))
+				DeleteKey(view, Modifier.weight(1f))
 			}
 			Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-				KeyboardLeftKey(view, Modifier.weight(1f))
-				KeyboardKey(view, arrayOf("た", "ち", "つ", "て", "と"), Modifier.weight(1f))
-				KeyboardKey(view, arrayOf("な", "に", "ぬ", "ね", "の"), Modifier.weight(1f))
-				KeyboardKey(view, arrayOf("は", "ひ", "ふ", "へ", "ほ"), Modifier.weight(1f))
-				KeyboardRightKey(view, Modifier.weight(1f))
+				LeftKey(view, Modifier.weight(1f))
+				TaGyoKey(view, Modifier.weight(1f))
+				NaGyoKey(view, Modifier.weight(1f))
+				HaGyoKey(view, Modifier.weight(1f))
+				RightKey(view, Modifier.weight(1f))
 			}
 			Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-				KeyboardKey(view, arrayOf("絵"), Modifier.weight(1f))
-				KeyboardKey(view, arrayOf("ま", "み", "む", "め", "も"), Modifier.weight(1f))
-				KeyboardKey(view, arrayOf("や", "(", "ゆ", ")", "よ"), Modifier.weight(1f))
-				KeyboardKey(view, arrayOf("ら", "り", "る", "れ", "ろ"), Modifier.weight(1f))
-				KeyboardSpaceKey(view, Modifier.weight(1f))
+				DefaultInputKey(view, "次", Modifier.weight(1f))
+				MaGyoKey(view, Modifier.weight(1f))
+				YaGyoKey(view, Modifier.weight(1f))
+				RaGyoKey(view, Modifier.weight(1f))
+				SpaceKey(view, Modifier.weight(1f))
 			}
 			Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-				KeyboardKey(view, arrayOf("A"), Modifier.weight(1f))
-				KeyboardTranslateKey(view, Modifier.weight(1f))
-				KeyboardKey(view, arrayOf("わ", "を", "ん", "ー", "〜"), Modifier.weight(1f))
-				KeyboardKey(view, arrayOf("、", "。", "？", "！", "…"), Modifier.weight(1f))
-				KeyboardEnterKey(view, Modifier.weight(1f))
+				KeyboardChangeKey(view, Modifier.weight(1f))
+				TranslateKey(view, Modifier.weight(1f))
+				WaGyoKey(view, Modifier.weight(1f))
+				KigouKey(view, Modifier.weight(1f))
+				EnterKey(view, Modifier.weight(1f))
 			}
 		}
 	}

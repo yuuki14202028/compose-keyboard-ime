@@ -1,6 +1,5 @@
 package com.example.composeime
 
-import android.inputmethodservice.InputMethodService
 import android.view.View
 import androidx.lifecycle.*
 import androidx.savedstate.SavedStateRegistry
@@ -13,7 +12,7 @@ class IMEService : LifecycleInputMethodService(),
     SavedStateRegistryOwner {
 
     override fun onCreateInputView(): View {
-        val view = ComposeKeyboardView(this)
+        val view = KeyboardView(this)
 
         window?.window?.decorView?.let { decorView ->
             decorView.setViewTreeLifecycleOwner(this)
